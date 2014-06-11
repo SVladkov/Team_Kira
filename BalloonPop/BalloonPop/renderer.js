@@ -1,0 +1,1 @@
+﻿// The renderer takes care of drawing the objects in the browser
