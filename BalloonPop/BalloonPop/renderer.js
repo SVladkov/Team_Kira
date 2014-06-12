@@ -27,8 +27,12 @@ function drawMovingBalloon(balloon, traectory) {
     ctx.stroke();
 }
 
+function drawObject(object) {
+    ctx.drawImage(object.image, object.x, object.y);
+}
+
 function player(player1) {
-    drawPoint(player1);
+    drawObject(player1);
 
     document.onkeydown = checkKey;
 
@@ -66,7 +70,11 @@ window.onload = function () {
         x: 0,
         y: 0
     };
+
+    var imageObj = new Image();
+    imageObj.src = 'kermit.png';
     var player1 = {
+        image: imageObj,
         radius: 30,
         x: 100,
         y: 200,
