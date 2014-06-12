@@ -2,3 +2,8 @@ D:\University\Telerik\JavaScript_2\BalloonPop\BalloonPop\bin\BalloonPop.dll
 D:\University\Telerik\JavaScript_2\BalloonPop\BalloonPop\bin\BalloonPop.pdb
 D:\University\Telerik\JavaScript_2\BalloonPop\BalloonPop\obj\Debug\BalloonPop.dll
 D:\University\Telerik\JavaScript_2\BalloonPop\BalloonPop\obj\Debug\BalloonPop.pdb
+C:\Users\Stef\Documents\GitHub\Team_Kira\BalloonPop\BalloonPop\bin\BalloonPop.dll
+C:\Users\Stef\Documents\GitHub\Team_Kira\BalloonPop\BalloonPop\bin\BalloonPop.pdb
+C:\Users\Stef\Documents\GitHub\Team_Kira\BalloonPop\BalloonPop\obj\Debug\BalloonPop.csprojResolveAssemblyReference.cache
+C:\Users\Stef\Documents\GitHub\Team_Kira\BalloonPop\BalloonPop\obj\Debug\BalloonPop.dll
+C:\Users\Stef\Documents\GitHub\Team_Kira\BalloonPop\BalloonPop\obj\Debug\BalloonPop.pdb
