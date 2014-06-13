@@ -13,8 +13,9 @@ function drawPoint(point) {
     ctx.fill();
 }
 
-function drawObject(object) {
-    ctx.drawImage(object.image, object.x, object.y);
+function drawPlayer(object) {
+    console.log(object.width);
+    ctx.drawImage(object.image, object.x - object.image.width/2, object.y - object.image.height/2);
 }
 
 function checkKey(e) {
@@ -43,7 +44,7 @@ function updatePosition(ball) {
 
 function createObjects() {
     var ball = {
-        x: 40,
+        x: 100,
         y: 100,
         radius: 10,
         draw: drawPoint,
@@ -55,22 +56,28 @@ function createObjects() {
 
     var imageObj = new Image();
     imageObj.src = 'kermit.png';
+    imageObj.onload = function () {
+        console.log('img:', imageObj.width + ' ' + imageObj.height);
+    }
+
     var player1 = {
         image: imageObj,
         radius: 30,
-        x: 100,
-        y: 200,
-        draw: drawObject,
-        update: function () {}
+        width: 32,
+        height: 32,
+        x: 10,
+        y: 10,
+        draw: drawPlayer,
+        update: function () { }
     };
 
     player = player1;
 
     objects.push(ball);
-    objects.push(player);
 }
 
 function drawPoints() {
+    player.draw(player);
     for (var i = 0, len = objects.length; i < len; i++) {
         objects[i].draw(objects[i]);
     }
@@ -82,6 +89,20 @@ function updatePositions() {
     }
 }
 
+function reactToCollision() {
+    for (var i = 0, len = objects.length; i < len; i++) {
+        var cx = objects[i].x,
+            cy = objects[i].y,
+            px = player.x,
+            py = player.y,
+            r = objects[i].radius,
+            inCircle = Math.sqrt((cx - px) * (cx - px) + (cy - py) * (cy - py)) < r;
+        if (inCircle) {
+            alert("end");
+        }
+    }
+}
+
 window.onload = function () {
     createObjects();
 
@@ -89,6 +110,7 @@ window.onload = function () {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
         document.onkeydown = checkKey;
+        reactToCollision();
         updatePositions();
         drawPoints();
 
