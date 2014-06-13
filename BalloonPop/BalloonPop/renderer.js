@@ -4,6 +4,7 @@ var oldWindowLoad = window.onload,
     canvas = document.getElementById('field'),
     ctx = canvas.getContext('2d'),
     objects = [],
+    bullets = [],
     player;
 
 function drawPoint(point) {
@@ -14,8 +15,14 @@ function drawPoint(point) {
 }
 
 function drawPlayer(object) {
-    console.log(object.width);
-    ctx.drawImage(object.image, object.x - object.image.width/2, object.y - object.image.height/2);
+    ctx.drawImage(object.image, object.x - object.image.width / 2, object.y - object.image.height / 2);
+
+    ctx.beginPath();
+    ctx.moveTo(object.x, object.y);
+    ctx.lineTo(object.x + 40 * object.shootX, object.y + 40 * object.shootY);
+    ctx.lineWidth = 3;
+    ctx.strokeStyle = '#ff0000';
+    ctx.stroke();
 }
 
 function checkKey(e) {
@@ -34,12 +41,40 @@ function checkKey(e) {
     else if (e.keyCode == '40') {
         player.y += 10;
     }
+    else if (e.keyCode == '32') {
+        player.shoot(player);
+    }
+    else if (e.keyCode == '65') {
+        x = player.shootX;
+        player.shootX = player.shootY;
+        player.shootY = -x;
+    }
+    else if (e.keyCode == '68') {
+        y = player.shootY;
+        player.shootY = player.shootX;
+        player.shootX = -y;
+    }
 }
 
 function updatePosition(ball) {
-    ball.angle += 0.02;
     ball.x = ball.updateX(ball);
     ball.y = ball.updateY(ball);
+}
+
+function shoot(player) {
+    var bullet = {
+        x: player.x,
+        y: player.y,
+        directionX: player.shootX,
+        directionY: player.shootY,
+        radius: 3,
+        draw: drawPoint,
+        updateX: function () { return this.x + this.directionX },
+        updateY: function () { return this.y + this.directionY },
+        update: updatePosition
+    }
+
+    bullets.push(bullet);
 }
 
 function createObjects() {
@@ -49,26 +84,27 @@ function createObjects() {
         radius: 10,
         draw: drawPoint,
         angle: 0,
-        updateX: function () { return 150 + 100 * Math.cos(this.angle); },
-        updateY: function () { return 150 + 100 * Math.sin(this.angle); },
+        updateX: function () { this.angle += 0.02; return 150 + 100 * Math.cos(this.angle); },
+        updateY: function () { this.angle += 0.02; return 150 + 100 * Math.sin(this.angle); },
         update: updatePosition
     }
 
     var imageObj = new Image();
     imageObj.src = 'kermit.png';
-    imageObj.onload = function () {
-        console.log('img:', imageObj.width + ' ' + imageObj.height);
-    }
+    imageObj.onload = function () { }
 
     var player1 = {
         image: imageObj,
         radius: 30,
         width: 32,
         height: 32,
-        x: 10,
-        y: 10,
+        x: 100,
+        y: 200,
         draw: drawPlayer,
-        update: function () { }
+        update: function () { },
+        shootX: 0,
+        shootY: -1,
+        shoot: shoot
     };
 
     player = player1;
@@ -81,11 +117,18 @@ function drawPoints() {
     for (var i = 0, len = objects.length; i < len; i++) {
         objects[i].draw(objects[i]);
     }
+    for (var i = 0, len = bullets.length; i < len; i++) {
+        console.log("hola");
+        bullets[i].draw(bullets[i]);
+    }
 }
 
 function updatePositions() {
     for (var i = 0, len = objects.length; i < len; i++) {
         objects[i].update(objects[i]);
+    }
+    for (var i = 0, len = bullets.length; i < len; i++) {
+        bullets[i].update(bullets[i]);
     }
 }
 
