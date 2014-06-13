@@ -2,7 +2,9 @@
 
 var oldWindowLoad = window.onload,
     canvas = document.getElementById('field'),
-    ctx = canvas.getContext('2d');
+    ctx = canvas.getContext('2d'),
+    objects = [],
+    player;
 
 function drawPoint(point) {
     ctx.beginPath();
@@ -11,65 +13,45 @@ function drawPoint(point) {
     ctx.fill();
 }
 
-function changePosition(ball, traectory) {
-    ball.x = traectory.x + traectory.radius * Math.cos(traectory.angle);
-    ball.y = traectory.y + traectory.radius * Math.sin(traectory.angle);
-}
-
-function drawMovingBalloon(balloon, traectory) {
-    traectory.angle += 0.05;
-
-    changePosition(balloon, traectory);
-    drawPoint(balloon);
-
-    ctx.beginPath();
-    ctx.arc(traectory.x, traectory.y, traectory.radius, 0, 2 * Math.PI);
-    ctx.stroke();
-}
-
 function drawObject(object) {
     ctx.drawImage(object.image, object.x, object.y);
 }
 
-function player(player1) {
-    drawObject(player1);
+function checkKey(e) {
 
-    document.onkeydown = checkKey;
+    e = e || window.event;
 
-    function checkKey(e) {
-
-        e = e || window.event;
-
-        if (e.keyCode == '37') {
-            player1.x -= 10;
-        }
-        else if (e.keyCode == '38') {
-            player1.y -= 10;
-        }
-        else if (e.keyCode == '39') {
-            player1.x += 10;
-        }
-        else if (e.keyCode == '40') {
-            player1.y += 10;
-        }
+    if (e.keyCode == '37') {
+        player.x -= 10;
+    }
+    else if (e.keyCode == '38') {
+        player.y -= 10;
+    }
+    else if (e.keyCode == '39') {
+        player.x += 10;
+    }
+    else if (e.keyCode == '40') {
+        player.y += 10;
     }
 }
 
-window.onload = function () {
-    //oldWindowLoad();
-    //player();
+function updatePosition(ball) {
+    ball.angle += 0.02;
+    ball.x = ball.updateX(ball);
+    ball.y = ball.updateY(ball);
+}
 
-    var traectory = {
-        x: canvas.width / 2,
-        y: canvas.height / 2,
-        radius: 150,
-        angle: 0
+function createObjects() {
+    var ball = {
+        x: 40,
+        y: 100,
+        radius: 10,
+        draw: drawPoint,
+        angle: 0,
+        updateX: function () { return 150 + 100 * Math.cos(this.angle); },
+        updateY: function () { return 150 + 100 * Math.sin(this.angle); },
+        update: updatePosition
     }
-    var balloon = {
-        radius: 5,
-        x: 0,
-        y: 0
-    };
 
     var imageObj = new Image();
     imageObj.src = 'kermit.png';
@@ -78,13 +60,37 @@ window.onload = function () {
         radius: 30,
         x: 100,
         y: 200,
+        draw: drawObject,
+        update: function () {}
     };
+
+    player = player1;
+
+    objects.push(ball);
+    objects.push(player);
+}
+
+function drawPoints() {
+    for (var i = 0, len = objects.length; i < len; i++) {
+        objects[i].draw(objects[i]);
+    }
+}
+
+function updatePositions() {
+    for (var i = 0, len = objects.length; i < len; i++) {
+        objects[i].update(objects[i]);
+    }
+}
+
+window.onload = function () {
+    createObjects();
 
     function frame() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-        drawMovingBalloon(balloon, traectory);
-        player(player1);
+        document.onkeydown = checkKey;
+        updatePositions();
+        drawPoints();
 
         window.requestAnimationFrame(frame);
     }

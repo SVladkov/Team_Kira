@@ -11,7 +11,7 @@ namespace BalloonPop
 {
 
 
-    public partial class renderer1
+    public partial class index
     {
 
         /// <summary>
