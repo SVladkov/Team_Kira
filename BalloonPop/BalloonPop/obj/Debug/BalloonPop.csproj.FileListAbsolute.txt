@@ -7,3 +7,9 @@ C:\Users\Stef\Documents\GitHub\Team_Kira\BalloonPop\BalloonPop\bin\BalloonPop.pd
 C:\Users\Stef\Documents\GitHub\Team_Kira\BalloonPop\BalloonPop\obj\Debug\BalloonPop.csprojResolveAssemblyReference.cache
 C:\Users\Stef\Documents\GitHub\Team_Kira\BalloonPop\BalloonPop\obj\Debug\BalloonPop.dll
 C:\Users\Stef\Documents\GitHub\Team_Kira\BalloonPop\BalloonPop\obj\Debug\BalloonPop.pdb
+C:\Users\hiksa\Documents\GitHub\Team_Kira\BalloonPop\BalloonPop\bin\BalloonPop.dll.config
+C:\Users\hiksa\Documents\GitHub\Team_Kira\BalloonPop\BalloonPop\bin\BalloonPop.dll
+C:\Users\hiksa\Documents\GitHub\Team_Kira\BalloonPop\BalloonPop\bin\BalloonPop.pdb
+C:\Users\hiksa\Documents\GitHub\Team_Kira\BalloonPop\BalloonPop\obj\Debug\BalloonPop.csprojResolveAssemblyReference.cache
+C:\Users\hiksa\Documents\GitHub\Team_Kira\BalloonPop\BalloonPop\obj\Debug\BalloonPop.dll
+C:\Users\hiksa\Documents\GitHub\Team_Kira\BalloonPop\BalloonPop\obj\Debug\BalloonPop.pdb
