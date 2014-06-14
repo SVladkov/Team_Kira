@@ -4,9 +4,10 @@ var oldWindowLoad = window.onload,
     canvas = document.getElementById('field'),
     ctx = canvas.getContext('2d'),
     objects = [],
+    balloons = [],
     bullets = [],
-    player;
-
+    player,
+    collisionDispatcher;
 
 
 function checkKey(e) {
@@ -46,74 +47,28 @@ function updatePosition(ball) {
 }
 
 function shoot(player) {
-    var bullet = {
-        x: player.x,
-        y: player.y,
-        directionX: player.shootX,
-        directionY: player.shootY,
-        radius: 3,
-        draw: drawPoint,
-        updateX: function () { return this.x + this.directionX },
-        updateY: function () { return this.y + this.directionY },
-        update: updatePosition
-    }
+    var projectile = new Projectile(player.x, player.y, 3, 'images/projectile.png', player.shootX, player.shootY);
+    projectile.draw = drawGameObject;
 
-    var projectileImage = new Image();
-    projectileImage.src = 'images/projectile.png';
-
-    var projectile = new Projectile(player.x, player.y, 3, projectileImage, player.shootX, player.shootY);
-    projectile.draw = drawPlayer;
-
-    bullets.push(projectile);
+    player.projectiles.push(projectile);
 }
 
 function createObjects() {
-    var imageObj = new Image();
-    imageObj.src = 'images/kermit.png';
-    imageObj.onload = function () { }
-
-    var thePlayer = new Player(100, 200, 20, imageObj, 0, -1);
+    var thePlayer = new Player(100, 200, 20, 'images/kermit.png', 0, -1);
     thePlayer.shoot = shoot;
 
-    var ball = {
-        x: 100,
-        y: 100,
-        radius: 10,
-        draw: drawPoint,
-        angle: 0,
-        updateX: function () { this.angle += 0.02; return 150 + 100 * Math.cos(this.angle); },
-        updateY: function () { this.angle += 0.02; return 150 + 100 * Math.sin(this.angle); },
-        update: updatePosition
-    }
-
-
-    var player1 = {
-        image: imageObj,
-        radius: 30,
-        width: 32,
-        height: 32,
-        x: 100,
-        y: 200,
-        draw: drawPlayer,
-        update: function () { },
-        shootX: 0,
-        shootY: -1,
-        shoot: shoot
-    };
-
+    var baloon = new Baloon(10, 10, 10, 'images/balloon.png', -1, 1);
+        
     player = thePlayer;
-    objects.push(ball);
+
+    collisionDispatcher = new collisions.CollisionDispatcher(ctx, player, balloons);
+    balloons.push(baloon);
 }
 
-function drawPoint(point) {
-    ctx.beginPath();
-    ctx.arc(point.x, point.y, point.size, 0, 2 * Math.PI);
-    ctx.fillStyle = "green";
-    ctx.fill();
-}
+function drawGameObject(object) {
+    var currentImage = object.image;
 
-function drawPlayer(object) {
-    ctx.drawImage(object.image, object.x - object.image.width / 2, object.y - object.image.height / 2);
+    ctx.drawImage(currentImage, object.x - currentImage.width / 2, object.y - currentImage.height / 2);
 
     ctx.beginPath();
     ctx.moveTo(object.x, object.y);
@@ -124,21 +79,33 @@ function drawPlayer(object) {
 }
 
 function drawPoints() {
-    drawPlayer(player);
+    drawGameObject(player);
+
     for (var i = 0, len = objects.length; i < len; i++) {
-        objects[i].draw(objects[i]);
+        drawGameObject(objects[i]);
     }
-    for (var i = 0, len = bullets.length; i < len; i++) {
-        bullets[i].draw(bullets[i]);
+    for (var j = 0, len = player.projectiles.length; j < len; j++) {
+        drawGameObject(player.projectiles[j]);
+    }
+
+    for (var k = 0, balloonsLength = balloons.length; k < balloonsLength; k++) {
+        drawGameObject(balloons[k]);
     }
 }
 
 function updatePositions() {
     for (var i = 0, len = objects.length; i < len; i++) {
-        objects[i].update(objects[i]);
+        if (objects[i].move) {
+            objects[i].move();
+        }
     }
-    for (var i = 0, len = bullets.length; i < len; i++) {
-        bullets[i].move();
+
+    for (var j = 0, len = player.projectiles.length; j < len; j++) {
+        player.projectiles[j].move();
+    }
+
+    for (var k = 0, balloonsLength = balloons.length; k < balloonsLength; k++) {
+        balloons[k].move();
     }
 }
 
@@ -163,7 +130,7 @@ window.onload = function () {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
         document.onkeydown = checkKey;
-        reactToCollision();
+        collisionDispatcher.baloonWallCollision();
         updatePositions();
         drawPoints();
 

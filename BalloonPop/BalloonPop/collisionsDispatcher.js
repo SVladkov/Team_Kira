@@ -51,10 +51,12 @@
 
                 if (areColliding(currentBaloon, currentProjectile)) {
                     // Pop the baloon
-
+                    theBaloons.splice(i, 1);
 
                     // Destroy the projectile
-                    theProjectiles.splice(i, 1);
+                    theProjectiles.splice(j, 1);
+
+                    console.log('collision')
                 }
             }
         }
