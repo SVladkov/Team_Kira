@@ -8,10 +8,29 @@
     this.shootX = Math.cos(this.weaponAngle);
     this.shootY = Math.sin(this.weaponAngle);
     this.projectiles = [];
+    this.attacks = ['normal-shot', 'triple-shot'];
+    this.currentAttack = 0;
     this.shoot = function () {
-        var projectile = new Projectile(player.x, player.y, 3, 'images/projectile.png', player.shootX * 5, player.shootY * 5);
-        this.projectiles.push(projectile);
-        shootSound.play();
+        switch (this.attacks[this.currentAttack]) {
+            case 'normal-shot':
+                var projectile = new Projectile(player.x, player.y, 3, 'images/projectile.png', player.shootX * 5, player.shootY * 5);
+                this.projectiles.push(projectile);
+                shootSound.play();
+                break;
+
+            case 'triple-shot':
+                var projectilez = [];
+                projectilez.push(new Projectile(player.x, player.y, 3, 'images/projectile.png', player.shootX * 5 - 5, player.shootY * 5));
+                projectilez.push(new Projectile(player.x, player.y, 3, 'images/projectile.png', player.shootX * 5, player.shootY * 5));
+                projectilez.push(new Projectile(player.x, player.y, 3, 'images/projectile.png', player.shootX * 5 + 5, player.shootY * 5));
+
+                for (var i = 0; i < projectilez.length; i += 1) {
+                    this.projectiles.push(projectilez[i]);
+                    shootSound.play();
+                }
+
+                break;
+        }
     };
     this.shiftWeaponLeft = function () {
         if (this.weaponAngle > 3.925) {
@@ -57,6 +76,20 @@ function Projectile(x, y, size, imageSource, speedX, speedY) {
     this.speedY = speedY;
     this.move = function () {
         this.x += this.speedX;
+        this.y += this.speedY;
+    };
+}
+
+function PowerUp(x, y, size, imageSource, ID) {
+    this.x = x;
+    this.y = y;
+    this.size = size;
+    this.image = new Image();
+    this.image.src = imageSource;
+    this.ID = ID;
+    this.powerTime = 5;
+    this.speedY = 1;
+    this.move = function () {
         this.y += this.speedY;
     };
 }

@@ -3,11 +3,13 @@
 var renderers = (function () {
     var thePlayer,
         theBalloons,
+        thePowerUps,
         ctx;
 
-    function CanvasRenderer(player, balloons, context) {
+    function CanvasRenderer(player, balloons, context, powerUps) {
         thePlayer = player;
         theBalloons = balloons;
+        thePowerUps = powerUps;
         ctx = context;
     }
 
@@ -37,6 +39,10 @@ var renderers = (function () {
         for (var k = 0, balloonsLength = theBalloons.length; k < balloonsLength; k++) {
             drawGameObject(theBalloons[k]);
         }
+
+        for (var p = 0, powerUpsLength = thePowerUps.length; p < powerUpsLength; p += 1) {
+            drawGameObject(thePowerUps[p]);
+        }
     }
 
     CanvasRenderer.prototype.updatePositions = function () {
@@ -46,6 +52,10 @@ var renderers = (function () {
 
         for (var k = 0, balloonsLength = theBalloons.length; k < balloonsLength; k++) {
             theBalloons[k].move();
+        }
+
+        for (var p = 0, powerUpsLength = thePowerUps.length; p < powerUpsLength; p += 1) {
+            thePowerUps[p].move();
         }
     }
 

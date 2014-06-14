@@ -63,6 +63,7 @@
     <Content Include="audio\shoot.mp3" />
     <Content Include="collisionsDispatcher.js" />
     <Content Include="gameEntities.js" />
+    <Content Include="images\powerup-1.png" />
     <Content Include="index.html" />
     <Content Include="main.js" />
     <Content Include="renderer.js" />
@@ -82,9 +83,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="images\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

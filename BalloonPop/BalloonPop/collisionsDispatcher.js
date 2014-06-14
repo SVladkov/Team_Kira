@@ -2,13 +2,15 @@
     var ctx = null,
         thePlayer = null,
         theBaloons = null,
-        theProjectiles = null;
+        theProjectiles = null,
+        thePowerUps = null;
 
-    function CollisionDispatcher(context, player, baloons) {
+    function CollisionDispatcher(context, player, baloons, powerUps) {
         ctx = context;
         thePlayer = player;
         theBaloons = baloons;
         theProjectiles = thePlayer.projectiles;
+        thePowerUps = powerUps;
     }
 
     CollisionDispatcher.prototype.projectileWallCollision = function() {
@@ -62,6 +64,12 @@
                     popSound.play();
                     theBaloons.splice(i, 1);
 
+                    var powerUp = Math.floor(Math.random() * 2);
+                    if (powerUp > 0) {
+                        var powerUp = new PowerUp(currentBaloon.x, currentBaloon.y, 25, 'images/powerup-' + powerUp + '.png', powerUp);
+                        thePowerUps.push(powerUp);
+                    }
+
                     // Destroy the projectile
                     theProjectiles.splice(j, 1);
                 }
@@ -80,6 +88,28 @@
 
         return false;
     }
+
+    CollisionDispatcher.prototype.powerUpPlayerCollision = function () {
+        for (var i = 0; i < thePowerUps.length; i++) {
+            var currentPowerUp = thePowerUps[i];
+
+            if (areColliding(currentPowerUp, thePlayer)) {
+                thePowerUps.splice(i, 1);
+                thePlayer.currentAttack = currentPowerUp.ID;
+                var reduceTime = setInterval(function () {
+                    currentPowerUp.powerTime -= 1;
+                    if (currentPowerUp.powerTime <= 0) {
+                        thePlayer.currentAttack = 0;
+                        clearInterval(reduceTime);
+                    }
+                }, 1000);
+            }
+
+            if (currentPowerUp.y + currentPowerUp.size / 2 >= ctx.canvas.height) {
+                thePowerUps.splice(i, 1);
+            }
+        }
+    };
 
     function areColliding(first, second) {
         if (first === undefined || second === undefined) {

@@ -2,6 +2,7 @@
     canvas = document.getElementById('field'),
     ctx = canvas.getContext('2d'),
     balloons = [],
+    powerUps = [],
     player,
     collisionDispatcher,
     renderer;
@@ -42,9 +43,9 @@ function initializeGame() {
         balloon = new Baloon(balloonX, balloonY, balloonSize, 'images/balloon.png', -1, 1);
     balloons.push(balloon);
 
-    collisionDispatcher = new collisions.CollisionDispatcher(ctx, player, balloons);
+    collisionDispatcher = new collisions.CollisionDispatcher(ctx, player, balloons, powerUps);
 
-    renderer = new renderers.CanvasRenderer(player, balloons, ctx);
+    renderer = new renderers.CanvasRenderer(player, balloons, ctx, powerUps);
 }
 
 window.onload = function () {
@@ -58,6 +59,7 @@ window.onload = function () {
         collisionDispatcher.balloonWallCollision();
         collisionDispatcher.balloonProjectileCollision();
         collisionDispatcher.projectileWallCollision();
+        collisionDispatcher.powerUpPlayerCollision();
         var playerIsHitByBalloon = collisionDispatcher.balloonPlayerCollision();
 
         if (playerIsHitByBalloon) {
