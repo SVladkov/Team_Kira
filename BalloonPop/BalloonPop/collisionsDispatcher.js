@@ -26,7 +26,7 @@
         }
     }
 
-    CollisionDispatcher.prototype.baloonWallCollision = function () {
+    CollisionDispatcher.prototype.balloonWallCollision = function () {
         for (var i = 0; i < theBaloons.length; i++) {
             var currentBaloon = theBaloons[i];
 
@@ -42,7 +42,7 @@
         }
     }
 
-    CollisionDispatcher.prototype.baloonProjectileCollision = function () {
+    CollisionDispatcher.prototype.balloonProjectileCollision = function () {
         for (var i = 0, baloonsLen = theBaloons.length; i < baloonsLen; i++) {
             var currentBaloon = theBaloons[i];
 
@@ -55,14 +55,12 @@
 
                     // Destroy the projectile
                     theProjectiles.splice(j, 1);
-
-                    console.log('collision')
                 }
             }
         }
     }
 
-    CollisionDispatcher.prototype.baloonPlayerCollision = function () {
+    CollisionDispatcher.prototype.balloonPlayerCollision = function () {
         for (var i = 0; i < theBaloons.length; i++) {
             var currentBaloon = theBaloons[i];
             
@@ -75,12 +73,12 @@
     }
 
     function areColliding(first, second) {
-        var deltaX = (first.x + first.size / 2) - (second.x + second.size / 2);
-        var deltaY = (first.y + first.size / 2) - (second.y + second.size / 2);
+        var deltaX = (first.x) - (second.x);
+        var deltaY = (first.y) - (second.y);
 
         var distance = Math.sqrt((deltaX * deltaX) + (deltaY * deltaY));
 
-        if (distance <= first.size + second.size) {
+        if (distance <= first.size / 2 + second.size / 2) {
             return true;
         }
         else {
