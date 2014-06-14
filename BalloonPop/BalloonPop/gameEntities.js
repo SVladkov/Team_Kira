@@ -10,6 +10,7 @@
     this.shoot = function () {
         var projectile = new Projectile(player.x, player.y, 3, 'images/projectile.png', player.shootX, player.shootY);
         this.projectiles.push(projectile);
+        shootSound.play();
     }
 }
 

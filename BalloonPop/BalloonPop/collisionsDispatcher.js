@@ -52,6 +52,7 @@
                 if (areColliding(currentBaloon, currentProjectile)) {
                     // Pop the baloon
                     theBaloons.splice(i, 1);
+                    popSound.play();
 
                     // Destroy the projectile
                     theProjectiles.splice(j, 1);
