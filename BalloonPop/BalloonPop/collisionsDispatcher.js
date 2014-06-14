@@ -21,7 +21,7 @@
                 // Destroy the projectile
 
                 theProjectiles.splice(i, 1);
-                break;
+                return;
             }
         }
     }
@@ -45,33 +45,27 @@
             var currentBaloon = theBaloons[i];
 
             for (var j = 0, projectilesLen = theProjectiles.length; j < projectilesLen; j++) {
-                var currentProjectile = theProjectiles[i];
+                var currentProjectile = theProjectiles[j];
 
                 if (areColliding(currentBaloon, currentProjectile)) {
                     // Baloon multiplication
                     if (currentBaloon.size > 50) {
-                        newBaloonsX = currentBaloon.x,
-                        newBaloonsY = currentBaloon.y,
-                        newBaloonsSize = Math.floor(currentBaloon.size / 1.5),
-                        newBaloonsSrc = currentBaloon.image.src,
-                        oldBaloonDirX = currentBaloon.speedX,
-                        oldBaloonDirY = currentBaloon.speedY;
-                        theBaloons.push(new Baloon(newBaloonsX, newBaloonsY, newBaloonsSize, newBaloonsSrc, oldBaloonDirX, (oldBaloonDirY > 0) ? -Math.abs(oldBaloonDirY) : Math.abs(oldBaloonDirY)));
-                        theBaloons.push(new Baloon(newBaloonsX, newBaloonsY, newBaloonsSize, newBaloonsSrc, (oldBaloonDirX > 0) ? -Math.abs(oldBaloonDirX) : Math.abs(oldBaloonDirX), oldBaloonDirY));
+                        spawnBalloons(currentBaloon);
                     }
-
-                    // Pop the baloon                    
-                    popSound.play();
-                    theBaloons.splice(i, 1);
-
+                    
                     var powerUp = Math.floor(Math.random() * 2);
                     if (powerUp > 0) {
                         var powerUp = new PowerUp(currentBaloon.x, currentBaloon.y, 25, 'images/powerup-' + powerUp + '.png', powerUp);
                         thePowerUps.push(powerUp);
                     }
 
+                    // Pop the baloon                    
+                    popSound.play();
+                    theBaloons.splice(i, 1);
+
                     // Destroy the projectile
                     theProjectiles.splice(j, 1);
+                    return;
                 }
             }
         }
@@ -111,10 +105,19 @@
         }
     };
 
+    function spawnBalloons(parentBalloon) {
+        var newSize = Math.floor(parentBalloon.size / 1.5);
+        var firstSpeedX = parentBalloon.speedX;
+        var secondSpeedX = parentBalloon.speedX * -1;
+
+        var firstChildBalloon = new Baloon(parentBalloon.x, parentBalloon.y, newSize, parentBalloon.image.src, firstSpeedX, parentBalloon.speedY);
+        var secondChildBalloon = new Baloon(parentBalloon.x, parentBalloon.y, newSize, parentBalloon.image.src, secondSpeedX, parentBalloon.speedY);
+        
+        theBaloons.push(firstChildBalloon);
+        theBaloons.push(secondChildBalloon);
+    }
+
     function areColliding(first, second) {
-        if (first === undefined || second === undefined) {
-            return;
-        }
         var deltaX = (first.x) - (second.x);
         var deltaY = (first.y) - (second.y);
 
@@ -126,7 +129,7 @@
             return false;
         }
     }
-
+    
     return {
         CollisionDispatcher: CollisionDispatcher
     }
