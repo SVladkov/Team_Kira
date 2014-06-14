@@ -1,8 +1,10 @@
-﻿function Player(x, y, size, image) {
+﻿function Player(x, y, size, image, shootX, shootY) {
     this.x = x;
     this.y = y;
     this.size = size;
     this.image = image;
+    this.shootX = shootX;
+    this.shootY = shootY;
     this.projectiles = [];
 }
 

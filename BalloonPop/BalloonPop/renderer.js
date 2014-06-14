@@ -7,23 +7,7 @@ var oldWindowLoad = window.onload,
     bullets = [],
     player;
 
-function drawPoint(point) {
-    ctx.beginPath();
-    ctx.arc(point.x, point.y, point.radius, 0, 2 * Math.PI);
-    ctx.fillStyle = "green";
-    ctx.fill();
-}
 
-function drawPlayer(object) {
-    ctx.drawImage(object.image, object.x - object.image.width / 2, object.y - object.image.height / 2);
-
-    ctx.beginPath();
-    ctx.moveTo(object.x, object.y);
-    ctx.lineTo(object.x + 40 * object.shootX, object.y + 40 * object.shootY);
-    ctx.lineWidth = 3;
-    ctx.strokeStyle = '#ff0000';
-    ctx.stroke();
-}
 
 function checkKey(e) {
 
@@ -74,10 +58,23 @@ function shoot(player) {
         update: updatePosition
     }
 
-    bullets.push(bullet);
+    var projectileImage = new Image();
+    projectileImage.src = 'images/projectile.png';
+
+    var projectile = new Projectile(player.x, player.y, 3, projectileImage, player.shootX, player.shootY);
+    projectile.draw = drawPlayer;
+
+    bullets.push(projectile);
 }
 
 function createObjects() {
+    var imageObj = new Image();
+    imageObj.src = 'images/kermit.png';
+    imageObj.onload = function () { }
+
+    var thePlayer = new Player(100, 200, 20, imageObj, 0, -1);
+    thePlayer.shoot = shoot;
+
     var ball = {
         x: 100,
         y: 100,
@@ -89,9 +86,6 @@ function createObjects() {
         update: updatePosition
     }
 
-    var imageObj = new Image();
-    imageObj.src = 'kermit.png';
-    imageObj.onload = function () { }
 
     var player1 = {
         image: imageObj,
@@ -107,18 +101,34 @@ function createObjects() {
         shoot: shoot
     };
 
-    player = player1;
-
+    player = thePlayer;
     objects.push(ball);
 }
 
+function drawPoint(point) {
+    ctx.beginPath();
+    ctx.arc(point.x, point.y, point.size, 0, 2 * Math.PI);
+    ctx.fillStyle = "green";
+    ctx.fill();
+}
+
+function drawPlayer(object) {
+    ctx.drawImage(object.image, object.x - object.image.width / 2, object.y - object.image.height / 2);
+
+    ctx.beginPath();
+    ctx.moveTo(object.x, object.y);
+    ctx.lineTo(object.x + 40 * object.shootX, object.y + 40 * object.shootY);
+    ctx.lineWidth = 3;
+    ctx.strokeStyle = '#ff0000';
+    ctx.stroke();
+}
+
 function drawPoints() {
-    player.draw(player);
+    drawPlayer(player);
     for (var i = 0, len = objects.length; i < len; i++) {
         objects[i].draw(objects[i]);
     }
     for (var i = 0, len = bullets.length; i < len; i++) {
-        console.log("hola");
         bullets[i].draw(bullets[i]);
     }
 }
@@ -128,7 +138,7 @@ function updatePositions() {
         objects[i].update(objects[i]);
     }
     for (var i = 0, len = bullets.length; i < len; i++) {
-        bullets[i].update(bullets[i]);
+        bullets[i].move();
     }
 }
 
@@ -141,7 +151,7 @@ function reactToCollision() {
             r = objects[i].radius,
             inCircle = Math.sqrt((cx - px) * (cx - px) + (cy - py) * (cy - py)) < r;
         if (inCircle) {
-            alert("end");
+        //    alert("end");
         }
     }
 }

@@ -12,7 +12,7 @@
     }
 
     CollisionDispatcher.prototype.projectileWallCollision = function () {
-        for (var i = 0; i < theProjectiles.length; i++) {
+        for (var i = 0, len = theProjectiles.length; i < len; i++) {
             var currentProjectile = theProjectiles[i];
 
             if ((currentProjectile.x - currentProjectile.size <= 0)
@@ -22,7 +22,6 @@
                 // Destroy the projectile
 
                 theProjectiles.splice(i, 1);
-                this.projectileWallCollision();
             }
         }
     }
@@ -44,10 +43,10 @@
     }
 
     CollisionDispatcher.prototype.baloonProjectileCollision = function () {
-        for (var i = 0; i < theBaloons.length; i++) {
+        for (var i = 0, baloonsLen = theBaloons.length; i < baloonsLen; i++) {
             var currentBaloon = theBaloons[i];
 
-            for (var j = 0; j < theProjectiles.length; j++) {
+            for (var j = 0, projectilesLen = theProjectiles.length; j < projectilesLen; j++) {
                 var currentProjectile = theProjectiles[i];
 
                 if (areColliding(currentBaloon, currentProjectile)) {
@@ -55,7 +54,7 @@
 
 
                     // Destroy the projectile
-                    
+                    theProjectiles.splice(i, 1);
                 }
             }
         }
