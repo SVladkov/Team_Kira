@@ -12,15 +12,27 @@ function checkKey(e) {
 
     if (e.keyCode == '37') {
         player.x -= 10;
+        if (player.x < 10) {
+            player.x = 10;
+        }
     }
     else if (e.keyCode == '38') {
         player.y -= 10;
+        if (player.y < 10) {
+            player.y = 10;
+        }
     }
     else if (e.keyCode == '39') {
         player.x += 10;
+        if (player.x > ctx.canvas.width - 10) {
+            player.x = ctx.canvas.width - 10;
+        }
     }
     else if (e.keyCode == '40') {
         player.y += 10;
+        if (player.y > ctx.canvas.height - 10) {
+            player.y = ctx.canvas.height - 10;
+        }
     }
     else if (e.keyCode == '32') {
         player.shoot(player);
@@ -67,7 +79,7 @@ window.onload = function () {
         if (playerIsHitByBalloon) {
             // Implement logic...
 
-
+            
         }
 
         renderer.updatePositions();
