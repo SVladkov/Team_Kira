@@ -13,15 +13,18 @@ var bgMusic = new Howl({
 	urls: ['audio/bg-music.mp3', 'audio/bg-music.ogg'],
 	autoplay: true,
 	loop: true,
-	volume: 0.5
+	volume: 0.5,
+	buffer: true
 });
 
 var shootSound = new Howl({
 	urls: ['audio/shoot.mp3', 'audio/shoot.ogg'],
-	volume: 0.2
+	volume: 0.2,
+	buffer: true
 });
 
 var popSound = new Howl({
 	urls: ['audio/pop.mp3', 'audio/pop.ogg'],
-	volume: 0.35
+	volume: 0.35,
+	buffer: true
 });
