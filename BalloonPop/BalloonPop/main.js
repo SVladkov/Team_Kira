@@ -16,41 +16,25 @@ function checkKey(e) {
             player.x = 10;
         }
     }
-    else if (e.keyCode == '38') {
-        player.y -= 10;
-        if (player.y < 10) {
-            player.y = 10;
-        }
-    }
     else if (e.keyCode == '39') {
         player.x += 10;
         if (player.x > ctx.canvas.width - 10) {
             player.x = ctx.canvas.width - 10;
         }
     }
-    else if (e.keyCode == '40') {
-        player.y += 10;
-        if (player.y > ctx.canvas.height - 10) {
-            player.y = ctx.canvas.height - 10;
-        }
-    }
     else if (e.keyCode == '32') {
         player.shoot(player);
     }
     else if (e.keyCode == '65') {
-        x = player.shootX;
-        player.shootX = player.shootY;
-        player.shootY = -x;
+        player.shiftWeaponLeft();
     }
     else if (e.keyCode == '68') {
-        y = player.shootY;
-        player.shootY = player.shootX;
-        player.shootX = -y;
+        player.shiftWeaponRight();
     }
 }
 
 function initializeGame() {
-    player = new Player(100, 200, 20, 'images/kermit.png', 0, -1);
+    player = new Player(100, 550, 20, 'images/kermit.png', 0, -1);
 
     var balloonX = 150,
         balloonY = 150,
