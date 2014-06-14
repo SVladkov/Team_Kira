@@ -60,25 +60,12 @@
     <Content Include="collisionsDispatcher.js" />
     <Content Include="gameEntities.js" />
     <Content Include="index.html" />
-    <Content Include="index.js" />
-    <Content Include="movingObjects.js" />
+    <Content Include="main.js" />
     <Content Include="renderer.js" />
     <Content Include="renderer_tester.html" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="index.js.cs">
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="index.js.designer.cs">
-      <DependentUpon>index.js.cs</DependentUpon>
-    </Compile>
-    <Compile Include="movingObjects.js.cs">
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="movingObjects.js.designer.cs">
-      <DependentUpon>movingObjects.js.cs</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
