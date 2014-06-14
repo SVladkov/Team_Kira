@@ -15,8 +15,8 @@
         for (var i = 0, len = theProjectiles.length; i < len; i++) {
             var currentProjectile = theProjectiles[i];
 
-            if ((currentProjectile.x - currentProjectile.size <= 0)
-                || (currentProjectile.y - currentProjectile.size <= 0)
+            if ((currentProjectile.x <= 0)
+                || (currentProjectile.y <= 0)
                 || (currentProjectile.x + currentProjectile.size >= ctx.canvas.width)
                 || (currentProjectile.y + currentProjectile.size >= ctx.canvas.height)) {
                 // Destroy the projectile
@@ -30,13 +30,13 @@
         for (var i = 0; i < theBaloons.length; i++) {
             var currentBaloon = theBaloons[i];
 
-            if ((currentBaloon.x - currentBaloon.size <= 0)
-                || (currentBaloon.x + currentBaloon.size >= ctx.canvas.width)){
+            if ((currentBaloon.x - currentBaloon.size / 2 <= 0)
+                || (currentBaloon.x + currentBaloon.size / 2 >= ctx.canvas.width)) {
                 currentBaloon.speedX *= -1;
             }
 
-            if ((currentBaloon.y - currentBaloon.size <= 0)
-                || (currentBaloon.y + currentBaloon.size >= ctx.canvas.height)) {
+            if ((currentBaloon.y - currentBaloon.size / 2 <= 0)
+                || (currentBaloon.y + currentBaloon.size / 2 >= ctx.canvas.height)) {
                 currentBaloon.speedY *= -1;
             }
         }
@@ -75,12 +75,12 @@
     }
 
     function areColliding(first, second) {
-        var deltaX = first.x - second.x;
-        var deltaY = first.y - second.y;
+        var deltaX = (first.x + first.size / 2) - (second.x + second.size / 2);
+        var deltaY = (first.y + first.size / 2) - (second.y + second.size / 2);
 
         var distance = Math.sqrt((deltaX * deltaX) + (deltaY * deltaY));
 
-        if (distance <= first.size + first.size) {
+        if (distance <= first.size + second.size) {
             return true;
         }
         else {

@@ -43,16 +43,21 @@ function checkKey(e) {
 function createObjects() {
     player = new Player(100, 200, 20, 'images/kermit.png', 0, -1);
 
-    var baloon = new Baloon(10, 10, 10, 'images/balloon.png', -1, 1);
-    balloons.push(baloon);
+    var balloonX = 150;
+    var balloonY = 150;
+    var balloonSize = 100;
+    var balloon = new Baloon(balloonX, balloonY, balloonSize, 'images/balloon.png', -1, 1);
+    balloons.push(balloon);
 
     collisionDispatcher = new collisions.CollisionDispatcher(ctx, player, balloons);
 }
 
 function drawGameObject(object) {
     var currentImage = object.image;
+    var xPosition = object.x - currentImage.width / 2;
+    var yPosition = object.y - currentImage.height / 2;
 
-    ctx.drawImage(currentImage, object.x - currentImage.width / 2, object.y - currentImage.height / 2);
+    ctx.drawImage(currentImage, xPosition, yPosition, currentImage.width, currentImage.height);
 
     ctx.beginPath();
     ctx.moveTo(object.x, object.y);
@@ -93,20 +98,6 @@ function updatePositions() {
     }
 }
 
-function reactToCollision() {
-    for (var i = 0, len = objects.length; i < len; i++) {
-        var cx = objects[i].x,
-            cy = objects[i].y,
-            px = player.x,
-            py = player.y,
-            r = objects[i].radius,
-            inCircle = Math.sqrt((cx - px) * (cx - px) + (cy - py) * (cy - py)) < r;
-        if (inCircle) {
-        //    alert("end");
-        }
-    }
-}
-
 window.onload = function () {
     createObjects();
 
@@ -114,7 +105,10 @@ window.onload = function () {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
         document.onkeydown = checkKey;
+
         collisionDispatcher.baloonWallCollision();
+        collisionDispatcher.baloonProjectileCollision();
+
         updatePositions();
         drawObjects();
 
