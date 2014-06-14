@@ -8,7 +8,7 @@
     this.shootY = shootY;
     this.projectiles = [];
     this.shoot = function () {
-        var projectile = new Projectile(player.x, player.y, 3, 'images/projectile.png', player.shootX, player.shootY);
+        var projectile = new Projectile(player.x, player.y, 3, 'images/projectile.png', player.shootX * 5, player.shootY * 5);
         this.projectiles.push(projectile);
         shootSound.play();
     }
