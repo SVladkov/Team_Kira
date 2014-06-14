@@ -7,6 +7,10 @@
     this.shootX = shootX;
     this.shootY = shootY;
     this.projectiles = [];
+    this.shoot = function () {
+        var projectile = new Projectile(player.x, player.y, 3, 'images/projectile.png', player.shootX, player.shootY);
+        this.projectiles.push(projectile);
+    }
 }
 
 function Baloon(x, y, size, imageSource, speedX, speedY) {

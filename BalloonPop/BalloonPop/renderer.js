@@ -11,7 +11,6 @@ var oldWindowLoad = window.onload,
 
 
 function checkKey(e) {
-
     e = e || window.event;
 
     if (e.keyCode == '37') {
@@ -41,28 +40,13 @@ function checkKey(e) {
     }
 }
 
-function updatePosition(ball) {
-    ball.x = ball.updateX(ball);
-    ball.y = ball.updateY(ball);
-}
-
-function shoot(player) {
-    var projectile = new Projectile(player.x, player.y, 3, 'images/projectile.png', player.shootX, player.shootY);
-    projectile.draw = drawGameObject;
-
-    player.projectiles.push(projectile);
-}
-
 function createObjects() {
-    var thePlayer = new Player(100, 200, 20, 'images/kermit.png', 0, -1);
-    thePlayer.shoot = shoot;
+    player = new Player(100, 200, 20, 'images/kermit.png', 0, -1);
 
     var baloon = new Baloon(10, 10, 10, 'images/balloon.png', -1, 1);
-        
-    player = thePlayer;
+    balloons.push(baloon);
 
     collisionDispatcher = new collisions.CollisionDispatcher(ctx, player, balloons);
-    balloons.push(baloon);
 }
 
 function drawGameObject(object) {
@@ -78,7 +62,7 @@ function drawGameObject(object) {
     ctx.stroke();
 }
 
-function drawPoints() {
+function drawObjects() {
     drawGameObject(player);
 
     for (var i = 0, len = objects.length; i < len; i++) {
@@ -132,11 +116,10 @@ window.onload = function () {
         document.onkeydown = checkKey;
         collisionDispatcher.baloonWallCollision();
         updatePositions();
-        drawPoints();
+        drawObjects();
 
         window.requestAnimationFrame(frame);
     }
 
     frame();
 }
-
