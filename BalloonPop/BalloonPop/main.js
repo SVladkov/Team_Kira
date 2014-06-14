@@ -61,8 +61,14 @@ window.onload = function () {
 
         collisionDispatcher.balloonWallCollision();
         collisionDispatcher.balloonProjectileCollision();
-        collisionDispatcher.balloonPlayerCollision();
         collisionDispatcher.projectileWallCollision();
+        var playerIsHitByBalloon = collisionDispatcher.balloonPlayerCollision();
+
+        if (playerIsHitByBalloon) {
+            // Implement logic...
+
+
+        }
 
         renderer.updatePositions();
         renderer.drawObjects();
