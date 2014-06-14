@@ -22,6 +22,7 @@
                 // Destroy the projectile
 
                 theProjectiles.splice(i, 1);
+                break;
             }
         }
     }

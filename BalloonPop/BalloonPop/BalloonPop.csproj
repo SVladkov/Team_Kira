@@ -57,18 +57,24 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="audio.js" />
+    <Content Include="audio\bg-music.mp3" />
+    <Content Include="audio\pop.mp3" />
+    <Content Include="audio\shoot.mp3" />
     <Content Include="collisionsDispatcher.js" />
     <Content Include="gameEntities.js" />
     <Content Include="index.html" />
     <Content Include="main.js" />
     <Content Include="renderer.js" />
-    <Content Include="renderer_tester.html" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="audio\bg-music.ogg" />
+    <Content Include="audio\pop.ogg" />
+    <Content Include="audio\shoot.ogg" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
