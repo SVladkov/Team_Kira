@@ -4,6 +4,7 @@
 <head runat="server">
     <title>Ballon Pop</title>
 	<link rel="stylesheet" type="text/css" href="styles/main-styles.css">
+	<script src="scripts/raphael-min.js"></script>
 	<script src="scripts/jquery-1.10.2.js"></script>
 	<script src="scripts/jquery-ui-1.10.4.custom.js"></script>
 </head>
@@ -19,5 +20,12 @@
     <script src="main.js"></script>
     <script src="audio.js"></script>
 	
+	<script>
+		var paper = Raphael(0, 0, 910, 200),
+		tree = paper.image('images/cloud.png', 910, 13, 150, 100),
+		alwaysMove = Raphael.animation({ x: -150 }, 15000).repeat(Infinity);
+
+		tree.animate(alwaysMove);
+	</script>
 </body>
 </html>

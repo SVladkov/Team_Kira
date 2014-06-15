@@ -1,5 +1,4 @@
 ﻿// The renderer takes care of drawing the objects in the browser
-
 var renderers = (function () {
     var thePlayer,
         theBalloons,
@@ -14,6 +13,8 @@ var renderers = (function () {
     }
 
     function drawSprite(object) {
+        drawWeapon(object);
+		
         image = new Image();
         image.src = "images/ninja.png",
         ctx.drawImage(
@@ -22,21 +23,20 @@ var renderers = (function () {
             object.direction * 192 / 4,
             object.image.width / object.numberOfFrames,
             object.image.height / object.spriteRows,
-            object.x,//(2 * object.x + object.image.width) / 2,
-            object.y,//(2 * object.y + object.image.height) / 2,
+            object.x - 10,//(2 * object.x + object.image.width) / 2,
+            object.y - 15,//(2 * object.y + object.image.height) / 2,
             object.image.width / object.numberOfFrames,
             object.image.height / object.spriteRows);
-        drawWeapon(object);
     };
 
     function drawGameObject(object) {
+        drawWeapon(object);
+		
         var currentImage = object.image;
         var xPosition = object.x - currentImage.width / 2;
         var yPosition = object.y - currentImage.height / 2;
 
         ctx.drawImage(currentImage, xPosition, yPosition, currentImage.width, currentImage.height);
-
-        drawWeapon(object);
     }
 
     function drawWeapon(object) {

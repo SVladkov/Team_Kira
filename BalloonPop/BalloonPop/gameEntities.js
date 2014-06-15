@@ -63,8 +63,8 @@ function SpriteImagePlayer(x, y, size, imageSource, spriteParameters) {
     this.ticksPerFrame = spriteParameters.ticksPerFrame;
     this.numberOfFrames = spriteParameters.numberOfFrames;
     this.spriteRows = spriteParameters.rows;
-    this.x = x;
-    this.y = y;
+    this.x = x + 25;
+    this.y = y + 25;
     this.size = size;
     this.image = new Image();
     this.image.src = imageSource;
