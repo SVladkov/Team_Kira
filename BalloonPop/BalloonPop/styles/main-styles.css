@@ -1,7 +1,8 @@
 #wrapper {
-	height: 600px;
-	width: 910px;
-	background-image: url("../images/mountain-background.jpg");
+	height: 590px;
+	width: 900px;
+	border: 1px solid black;
+	background-image: url("../images/tst-background.jpg");
 	background-repeat: no-repeat;
 	position: absolute;
 }
@@ -10,8 +11,8 @@
 }
 #main {
 	position: relative;
-	height: 500px;
-	width: 810px;
+	height: 590px;
+	width: 900px;
 	margin-left: auto;
 	margin-right: auto;
 }
@@ -60,20 +61,20 @@
 button {
 	height: 50px;
 	width: 400px;
-	background-color: yellow;
-	color: purple;
+	background-color: #99C556;
+	color: black;
 	font-size: 25px;
 	margin-top: 5px;
-	border: 1px solid red;
-	border-radius: 5px;
+	border: 2px solid black;
+	border-radius: 8px;
 }
 
 button:first-child { 
-	margin-top: 250px;
+	margin-top: 360px;
 }
 
 button:hover{ 
-	background-color: red;
+	background-color: #77B82A;
 }
 
 #field { 
