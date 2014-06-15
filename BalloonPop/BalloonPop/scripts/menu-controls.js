@@ -147,10 +147,10 @@ function showAboutInfo() {
 function teamKiraInfo() {
 	var element = document.createElement("div"),
 		teamMembers = [{name: "Здравко Георгиев", account: "hiksa", responsibility: "Coordinate the team and clean the code of bugs."},
-						{name: "Стефан Владков", account: "S.Vladkov", responsibility: "----------"},
-						{name: "Ивайло Христов", account: "pl0xicity",  responsibility: "----------"},
-						{name: "Цветелина Влашева", account: "Tsvetenceto",  responsibility: "----------"},
-						{name: "Крум Тюкенов", account: "Overon",  responsibility: "----------"},
+						{name: "Стефан Владков", account: "S.Vladkov", responsibility: "Animation, moving, shooting."},
+						{name: "Ивайло Христов", account: "pl0xicity",  responsibility: "Sound, balloons, bonuses."},
+						{name: "Цветелина Влашева", account: "Tsvetenceto",  responsibility: "Other stuff"},
+						{name: "Крум Тюкенов", account: "Overon",  responsibility: "Other stuff"},
 						{name: "Николай Иларионов", account: "nikolay.ilarionov", responsibility: "Create menues, betatesting."}],
 		innerElement = document.createElement("ol"),
 		openingText = "Team Kira consists of " +teamMembers.length + " members, all active and friendly. We go as follows (listing according to Telerik Student system): ";
