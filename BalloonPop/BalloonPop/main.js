@@ -37,6 +37,12 @@
 
 	function initializeGame() {
 		//player = new StaticImagePlayer(100, 550, 20, 'images/kermit.png');
+		
+					
+		if(playerLives === 0){
+			gameOver();
+		}
+		
 		spriteParameters = {
 			upRow: 3,
 			downRow: 0,
@@ -89,10 +95,6 @@
 			renderer.drawObjects();
 
 			window.requestAnimationFrame(frame);
-			
-			if(playerLives === 0){
-				gameOver();
-			}
 		
 			if(balloons.length === 0){
 				level += 1;
