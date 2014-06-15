@@ -12,7 +12,7 @@
     this.currentAttack = 0;
     this.currentAttackTimeLeft = 0;
     this.currentAttackInterval = null;
-    this.shoot = function () {
+    this.shoot = function (player) {
         switch (this.attacks[this.currentAttack]) {
             case 'normal-shot':
                 var projectile = new Projectile(player.x, player.y, 3, 'images/projectile.png', player.shootX * 5, player.shootY * 5);
