@@ -1,0 +1,90 @@
+#wrapper {
+	height: 600px;
+	width: 910px;
+	background-image: url("../images/mountain-background.jpg");
+	background-repeat: no-repeat;
+	position: absolute;
+}
+#wrapper > div {
+	text-align: center;
+}
+#main {
+	position: relative;
+	height: 500px;
+	width: 810px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#enterName {
+	margin-top: 100px;
+}
+
+#hscores, #aboutUs, #exitGame, #gameOver{
+	height: 500px;
+	width: 810px;
+	border: 2px solid black;
+	border-left: 5px solid black;
+	border-top: 5px solid black;
+	border-top-left-radius: 30px;
+	border-bottom-right-radius: 30px;
+	margin-top: 50px;
+	color: black;
+	font-size: 25px;
+	font-style: strong;
+	margin-left: auto;
+	margin-right: auto;
+	background-color: white;
+}
+
+#hscores > div:first-of-type {
+	margin-top: 20px;
+}
+
+#aboutUs  > div:first-of-type  {
+	margin-top: 20px;
+	font-size: 20px;
+	text-align: left;
+	padding-right: 5px;
+	padding-left: 8px;
+}
+	
+#exitGame > div:first-of-type {
+	margin-top: 80px;
+}
+
+#exitGame > button:first-of-type{
+	margin-top: 50px;
+}
+
+button {
+	height: 50px;
+	width: 400px;
+	background-color: yellow;
+	color: purple;
+	font-size: 25px;
+	margin-top: 5px;
+	border: 1px solid red;
+	border-radius: 5px;
+}
+
+button:first-child { 
+	margin-top: 250px;
+}
+
+button:hover{ 
+	background-color: red;
+}
+
+#field { 
+    background-image: url("../images/mountain-background.jpg");
+	background-repeat: no-repeat; 
+}
+
+#nameInput {
+	height: 50px;
+	width: 300px;
+	color: purple;
+	font-size: 25px;
+	text-align: center;
+}
