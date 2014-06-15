@@ -6,8 +6,7 @@
 		player,
 		collisionDispatcher,
 		renderer,
-		playerLives = lives,
-		playerScore = 0;
+		playerLives = lives;
 
 
 	function checkKey(e) {
@@ -40,8 +39,6 @@
 		player = new Player(100, 550, 20, 'images/kermit.png');
 		
 		if(playerLives === 0){
-			var playerToAdd = { name: playerName, score: playerScore};
-			highscores.push(playerToAdd);
 			gameOver();
 		}
 		

@@ -59,9 +59,10 @@
                         thePowerUps.push(powerUp);
                     }
 
-                    // Pop the baloon                    
+                    // Pop the baloon and add player score                 
                     popSound.play();
                     theBaloons.splice(i, 1);
+					playerScore +=10;
 
                     // Destroy the projectile
                     theProjectiles.splice(j, 1);

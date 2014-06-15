@@ -81,7 +81,7 @@ button:hover{
 	background-repeat: no-repeat; 
 }
 
-#nameInput {
+input {
 	height: 50px;
 	width: 300px;
 	color: purple;
