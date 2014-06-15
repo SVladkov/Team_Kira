@@ -89,14 +89,23 @@
 
             if (areColliding(currentPowerUp, thePlayer)) {
                 thePowerUps.splice(i, 1);
-                thePlayer.currentAttack = currentPowerUp.ID;
-                var reduceTime = setInterval(function () {
-                    currentPowerUp.powerTime -= 1;
-                    if (currentPowerUp.powerTime <= 0) {
-                        thePlayer.currentAttack = 0;
-                        clearInterval(reduceTime);
-                    }
-                }, 1000);
+
+                if (thePlayer.currentAttack === currentPowerUp.ID) {
+                    thePlayer.currentAttackTimeLeft += currentPowerUp.powerTime;
+                }
+                else {
+                    clearInterval(thePlayer.currentAttackInterval);
+
+                    thePlayer.currentAttack = currentPowerUp.ID;
+                    thePlayer.currentAttackTimeLeft = currentPowerUp.powerTime;
+                    thePlayer.currentAttackInterval = setInterval(function () {
+                        thePlayer.currentAttackTimeLeft -= 1;
+                        if (thePlayer.currentAttackTimeLeft <= 0) {
+                            thePlayer.currentAttack = 0;
+                            clearInterval(thePlayer.currentAttackInterval);
+                        }
+                    }, 1000);
+                }
             }
 
             if (currentPowerUp.y + currentPowerUp.size / 2 >= ctx.canvas.height) {

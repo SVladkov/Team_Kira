@@ -10,6 +10,8 @@
     this.projectiles = [];
     this.attacks = ['normal-shot', 'triple-shot'];
     this.currentAttack = 0;
+    this.currentAttackTimeLeft = 0;
+    this.currentAttackInterval = null;
     this.shoot = function () {
         switch (this.attacks[this.currentAttack]) {
             case 'normal-shot':
