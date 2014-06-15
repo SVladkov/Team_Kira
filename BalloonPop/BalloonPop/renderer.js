@@ -19,7 +19,7 @@ var renderers = (function () {
         ctx.drawImage(
             object.image,
             object.frameIndex * object.image.width / object.numberOfFrames,
-            object.direction,
+            object.direction * 192 / 4,
             object.image.width / object.numberOfFrames,
             object.image.height / object.spriteRows,
             object.x,//(2 * object.x + object.image.width) / 2,

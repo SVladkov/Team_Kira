@@ -17,15 +17,18 @@
 			if (player.x < 10) {
 				player.x = 10;
 			}
+			player.direction = player.left;
 		}
 		else if (e.keyCode == '39') {
 			player.x += 10;
 			if (player.x > ctx.canvas.width - 10) {
 				player.x = ctx.canvas.width - 10;
 			}
+			player.direction = player.right;
 		}
 		else if (e.keyCode == '32') {
 			player.shoot(player);
+			player.direction = player.up;
 		}
 		else if (e.keyCode == '65') {
 			player.shiftWeaponLeft();
@@ -64,7 +67,7 @@
 				balloon = new Baloon(balloonX, balloonY, balloonSize, 'images/balloon.png', speedX, speedY);
 			balloons.push(balloon);
 		}
-
+		
 		collisionDispatcher = new collisions.CollisionDispatcher(ctx, player, balloons, powerUps);
 
 		renderer = new renderers.CanvasRenderer(player, balloons, ctx, powerUps);
