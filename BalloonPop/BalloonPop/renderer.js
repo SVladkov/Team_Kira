@@ -13,6 +13,22 @@ var renderers = (function () {
         ctx = context;
     }
 
+    function drawSprite(object) {
+        image = new Image();
+        image.src = "images/ninja.png",
+        ctx.drawImage(
+            object.image,
+            object.frameIndex * object.image.width / object.numberOfFrames,
+            object.direction,
+            object.image.width / object.numberOfFrames,
+            object.image.height / object.spriteRows,
+            object.x,//(2 * object.x + object.image.width) / 2,
+            object.y,//(2 * object.y + object.image.height) / 2,
+            object.image.width / object.numberOfFrames,
+            object.image.height / object.spriteRows);
+        drawWeapon(object);
+    };
+
     function drawGameObject(object) {
         var currentImage = object.image;
         var xPosition = object.x - currentImage.width / 2;
@@ -20,6 +36,10 @@ var renderers = (function () {
 
         ctx.drawImage(currentImage, xPosition, yPosition, currentImage.width, currentImage.height);
 
+        drawWeapon(object);
+    }
+
+    function drawWeapon(object) {
         ctx.beginPath();
         ctx.moveTo(object.x, object.y);
         ctx.lineTo(object.x + 40 * object.shootX, object.y + 40 * object.shootY);
@@ -29,8 +49,7 @@ var renderers = (function () {
     }
 
     CanvasRenderer.prototype.drawObjects = function () {
-        drawGameObject(thePlayer);
-
+        drawSprite(thePlayer);
 
         for (var j = 0, len = thePlayer.projectiles.length; j < len; j++) {
             drawGameObject(thePlayer.projectiles[j]);
@@ -46,6 +65,8 @@ var renderers = (function () {
     }
 
     CanvasRenderer.prototype.updatePositions = function () {
+		thePlayer.move();
+	
         for (var j = 0, projectilesLen = thePlayer.projectiles.length; j < projectilesLen; j++) {
             thePlayer.projectiles[j].move();
         }

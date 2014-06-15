@@ -36,7 +36,18 @@
 	}
 
 	function initializeGame() {
-		player = new Player(100, 550, 20, 'images/kermit.png');
+		//player = new StaticImagePlayer(100, 550, 20, 'images/kermit.png');
+		spriteParameters = {
+			upRow: 3,
+			downRow: 0,
+			leftRow: 1,
+			rightRow: 2,
+			rows: 4,
+			numberOfFrames: 4,
+			ticksPerFrame: 10,
+			tickCount: 0,
+		};
+		player = new SpriteImagePlayer(100, 500, 20, 'images/ninja.png', spriteParameters);
 		
 		for(var i = 0; i < level; i+=1){
 			var balloonX = 150,
