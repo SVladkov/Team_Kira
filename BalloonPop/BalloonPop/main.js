@@ -7,7 +7,7 @@
 		collisionDispatcher,
 		renderer,
 		playerLives = lives;
-
+		level = 1;
 
 	function checkKey(e) {
 		e = e || window.event;
@@ -38,15 +38,15 @@
 	function initializeGame() {
 		player = new Player(100, 550, 20, 'images/kermit.png');
 		
-		if(playerLives === 0){
-			gameOver();
+		for(var i = 0; i < level; i+=1){
+			var balloonX = 150,
+				balloonY = 150,
+				balloonSize = 100,
+				speedX = (i%2 === 0)? -1 : 1;
+				speedY = (i%2 === 0)? 1 : -1;
+				balloon = new Baloon(balloonX, balloonY, balloonSize, 'images/balloon.png', speedX, speedY);
+			balloons.push(balloon);
 		}
-		
-		var balloonX = 150,
-			balloonY = 150,
-			balloonSize = 100,
-			balloon = new Baloon(balloonX, balloonY, balloonSize, 'images/balloon.png', -1, 1);
-		balloons.push(balloon);
 
 		collisionDispatcher = new collisions.CollisionDispatcher(ctx, player, balloons, powerUps);
 
@@ -70,6 +70,7 @@
 			if (playerIsHitByBalloon) {
 				playerLives -=1;
 				balloons = [];
+				powerUps = []
 				start();		
 			}
 
@@ -77,8 +78,17 @@
 			renderer.drawObjects();
 
 			window.requestAnimationFrame(frame);
+			
+			if(playerLives === 0){
+				gameOver();
+			}
+		
+			if(balloons.length === 0){
+				level += 1;
+				start();
+			}
 		}
-
+				
 		frame();
 	}
 	
